@@ -39,6 +39,7 @@ dependencies:
   flutter_screenutil: ^5.4.0+1
   emojis: ^0.9.9
   intl: ^0.17.0
+  youtube_player_flutter: ^8.0.0
 
 dev_dependencies:
   flutter_test:

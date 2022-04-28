@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:qubehealth/feelings.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class FeelingsHistory extends StatefulWidget {
   const FeelingsHistory({Key? key}) : super(key: key);
@@ -99,7 +100,55 @@ class _FeelingsHistoryState extends State<FeelingsHistory> {
   }
 
   Widget videoThumbnail() {
-    return Container();
+    String url = link;
+    bool trimWhitespaces = true;
+    String id = '';
+
+    if (!url.contains("http") && (url.length == 11)) {
+      id = url;
+    }
+    if (trimWhitespaces) {
+      url = url.trim();
+    }
+
+    for (var exp in [
+      RegExp(
+          r"^https:\/\/(?:www\.|m\.)?youtube\.com\/watch\?v=([_\-a-zA-Z0-9]{11}).*$"),
+      RegExp(
+          r"^https:\/\/(?:www\.|m\.)?youtube(?:-nocookie)?\.com\/embed\/([_\-a-zA-Z0-9]{11}).*$"),
+      RegExp(r"^https:\/\/youtu\.be\/([_\-a-zA-Z0-9]{11}).*$")
+    ]) {
+      Match? match = exp.firstMatch(url);
+      if (match != null && match.groupCount >= 1) {
+        id = match.group(1)!;
+      }
+    }
+
+    YoutubePlayerController _controller = YoutubePlayerController(
+      initialVideoId: id,
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+        mute: false,
+      ),
+    );
+
+    return Container(
+      height: 225.h,
+      padding: const EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 10.0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20.0),
+        child: YoutubePlayerBuilder(
+          player: YoutubePlayer(
+            controller: _controller,
+            showVideoProgressIndicator: true,
+            progressIndicatorColor: Colors.red,
+          ),
+          builder: (builder, player) {
+            return const Text("");
+          },
+        ),
+      ),
+    );
   }
 
   Widget calendarView(BuildContext context) {
