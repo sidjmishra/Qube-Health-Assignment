@@ -18,6 +18,7 @@
 -  **flutter_video_info** (https://pub.dev/packages/flutter_video_info) : This plugin uses MediaMetadataRetriever class to get basic meta information of a video file.
 
 ### Application Screenshots
+- Initial Screens.\
 <img src="https://github.com/sidjmishra/Qube-Health-Assignment/blob/assignment2/Screenshots/Screenshot%201.png" width="150" alt="Screenshot 1"> <img src="https://github.com/sidjmishra/Qube-Health-Assignment/blob/assignment2/Screenshots/Screenshot%202.png" width="150" alt="Screenshot 2">
 - Picking Video File within duration of 5s.\
 <img src="https://github.com/sidjmishra/Qube-Health-Assignment/blob/assignment2/Screenshots/Screenshot%203.png" width="150" alt="Screenshot 3"> <img src="https://github.com/sidjmishra/Qube-Health-Assignment/blob/assignment2/Screenshots/Screenshot%204.png" width="150" alt="Screenshot 4">
