@@ -19,11 +19,11 @@
 
 ### Application Screenshots
 <img src="https://github.com/sidjmishra/Qube-Health-Assignment/blob/assignment2/Screenshots/Screenshot%201.png" width="150" alt="Screenshot 1"> <img src="https://github.com/sidjmishra/Qube-Health-Assignment/blob/assignment2/Screenshots/Screenshot%202.png" width="150" alt="Screenshot 2">
-- Picking Video File within duration of 5s.
+- Picking Video File within duration of 5s.\
 <img src="https://github.com/sidjmishra/Qube-Health-Assignment/blob/assignment2/Screenshots/Screenshot%203.png" width="150" alt="Screenshot 3"> <img src="https://github.com/sidjmishra/Qube-Health-Assignment/blob/assignment2/Screenshots/Screenshot%204.png" width="150" alt="Screenshot 4">
-- Trying to pick Video File of duration more than 5s.
+- Trying to pick Video File of duration more than 5s.\
 <img src="https://github.com/sidjmishra/Qube-Health-Assignment/blob/assignment2/Screenshots/Screenshot%205.png" width="150" alt="Screenshot 5"> <img src="https://github.com/sidjmishra/Qube-Health-Assignment/blob/assignment2/Screenshots/Screenshot%206.png" width="150" alt="Screenshot 6">
-- Picking Video File within duration of 15s.
+- Picking Video File within duration of 15s.\
 <img src="https://github.com/sidjmishra/Qube-Health-Assignment/blob/assignment2/Screenshots/Screenshot%207.png" width="150" alt="Screenshot 7"> <img src="https://github.com/sidjmishra/Qube-Health-Assignment/blob/assignment2/Screenshots/Screenshot%208.png" width="150" alt="Screenshot 8">
 
 ### Application APK
