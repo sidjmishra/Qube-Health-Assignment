@@ -1,3 +1,4 @@
+import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,12 +31,7 @@ class _FeelingsHistoryState extends State<FeelingsHistory> {
   String desc = "";
   String link = "";
   DateTime dt = DateTime.now();
-
-  @override
-  void initState() {
-    super.initState();
-    getData();
-  }
+  DateTime _selectedDate = DateTime.now();
 
   void getData() {
     FeelingsResponse().getData().then((value) {
@@ -54,6 +50,7 @@ class _FeelingsHistoryState extends State<FeelingsHistory> {
       if (feeling_list.isNotEmpty) {
         setState(() {
           dt = DateTime.parse(feeling_list[0]["submit_time"]);
+          _selectedDate = dt;
           date = DateFormat('d MMM, yyyy').format(dt);
           day = DateFormat('EE').format(dt).substring(0, 2);
         });
@@ -66,6 +63,12 @@ class _FeelingsHistoryState extends State<FeelingsHistory> {
         });
       }
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
   }
 
   @override
@@ -167,75 +170,31 @@ class _FeelingsHistoryState extends State<FeelingsHistory> {
             child: Text(
               date,
               style: GoogleFonts.openSans(
-                fontSize: 12.w,
+                fontSize: 15.w,
                 fontWeight: FontWeight.w600,
               ),
             ),
           ),
           const SizedBox(height: 10.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              day == "Mo"
-                  ? calendarButton("Mo", date.substring(0, 2), true)
-                  : calendarButton("Mo", date.substring(0, 2), false),
-              day == "Tu"
-                  ? calendarButton("Tu", date.substring(0, 2), true)
-                  : calendarButton("Tu", date.substring(0, 2), false),
-              day == "We"
-                  ? calendarButton("We", date.substring(0, 2), true)
-                  : calendarButton("We", date.substring(0, 2), false),
-              day == "Th"
-                  ? calendarButton("Th", date.substring(0, 2), true)
-                  : calendarButton("Th", date.substring(0, 2), false),
-              day == "Fr"
-                  ? calendarButton("Fr", date.substring(0, 2), true)
-                  : calendarButton("Fr", date.substring(0, 2), false),
-              day == "Sa"
-                  ? calendarButton("Sa", date.substring(0, 2), true)
-                  : calendarButton("Sa", date.substring(0, 2), false),
-              day == "Su"
-                  ? calendarButton("Su", date.substring(0, 2), true)
-                  : calendarButton("Su", date.substring(0, 2), false),
-            ],
+          CalendarTimeline(
+            initialDate: _selectedDate,
+            firstDate: DateTime.utc(dt.year, DateTime.january, 1),
+            lastDate: DateTime.utc(dt.year, DateTime.december, 31),
+            onDateSelected: (value) {
+              setState(() {
+                _selectedDate = value!;
+                date = DateFormat('d MMM, yyyy').format(value);
+              });
+            },
+            monthColor: Colors.black,
+            dayColor: const Color.fromARGB(255, 180, 180, 180),
+            dayNameColor: Colors.white,
+            activeDayColor: Colors.white,
+            dotsColor: const Color.fromARGB(255, 79, 79, 79),
+            activeBackgroundDayColor: const Color.fromARGB(255, 79, 79, 79),
+            locale: 'en',
           ),
         ],
-      ),
-    );
-  }
-
-  Widget calendarButton(String weekday, String date, bool selected) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          selected ? selected = false : selected = true;
-        });
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          color: selected ? Colors.grey[800] : Colors.transparent,
-        ),
-        height: 90.h,
-        width: 40.w,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              weekday,
-              style: selected
-                  ? GoogleFonts.openSans(color: Colors.white, fontSize: 15.w)
-                  : GoogleFonts.openSans(color: Colors.black, fontSize: 15.w),
-            ),
-            const SizedBox(height: 10.0),
-            Text(
-              date,
-              style: selected
-                  ? GoogleFonts.openSans(color: Colors.white, fontSize: 15.w)
-                  : GoogleFonts.openSans(color: Colors.black, fontSize: 15.w),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -261,7 +220,7 @@ class _FeelingsHistoryState extends State<FeelingsHistory> {
             desc,
             textAlign: TextAlign.justify,
             style: GoogleFonts.openSans(
-              fontSize: 13.w,
+              fontSize: 15.w,
               color: Colors.grey,
               fontWeight: FontWeight.w600,
             ),
@@ -283,28 +242,28 @@ class _FeelingsHistoryState extends State<FeelingsHistory> {
               time >= 00 && time <= 04
                   ? Text("12AM - 4AM",
                       style: GoogleFonts.openSans(
-                          fontSize: 13.w, fontWeight: FontWeight.w600))
+                          fontSize: 15.w, fontWeight: FontWeight.w600))
                   : time >= 04 && time <= 08
                       ? Text("4AM - 8AM",
                           style: GoogleFonts.openSans(
-                              fontSize: 13.w, fontWeight: FontWeight.w600))
+                              fontSize: 15.w, fontWeight: FontWeight.w600))
                       : time >= 08 && time <= 12
                           ? Text("8AM - 12PM",
                               style: GoogleFonts.openSans(
-                                  fontSize: 13.w, fontWeight: FontWeight.w600))
+                                  fontSize: 15.w, fontWeight: FontWeight.w600))
                           : time >= 12 && time <= 04
                               ? Text("12PM - 4PM",
                                   style: GoogleFonts.openSans(
-                                      fontSize: 13.w,
+                                      fontSize: 15.w,
                                       fontWeight: FontWeight.w600))
                               : time >= 04 && time <= 08
                                   ? Text("4PM - 8PM",
                                       style: GoogleFonts.openSans(
-                                          fontSize: 13.w,
+                                          fontSize: 15.w,
                                           fontWeight: FontWeight.w600))
                                   : Text("8PM - 12AM",
                                       style: GoogleFonts.openSans(
-                                          fontSize: 13.w,
+                                          fontSize: 15.w,
                                           fontWeight: FontWeight.w600)),
             ],
           ),
@@ -315,33 +274,33 @@ class _FeelingsHistoryState extends State<FeelingsHistory> {
               feeling_list[v]["feeling_name"] == "Energetic"
                   ? Text("⚡ Energetic",
                       style: GoogleFonts.openSans(
-                          fontSize: 13.w, fontWeight: FontWeight.w600))
+                          fontSize: 15.w, fontWeight: FontWeight.w600))
                   : feeling_list[v]["feeling_name"] == "Sad"
                       ? Text("😫 Sad",
                           style: GoogleFonts.openSans(
-                              fontSize: 13.w, fontWeight: FontWeight.w600))
+                              fontSize: 15.w, fontWeight: FontWeight.w600))
                       : feeling_list[v]["feeling_name"] == "Happy"
                           ? Text("😃 Happy",
                               style: GoogleFonts.openSans(
-                                  fontSize: 13.w, fontWeight: FontWeight.w600))
+                                  fontSize: 15.w, fontWeight: FontWeight.w600))
                           : feeling_list[v]["feeling_name"] == "Angry"
                               ? Text("😡 Angry",
                                   style: GoogleFonts.openSans(
-                                      fontSize: 13.w,
+                                      fontSize: 15.w,
                                       fontWeight: FontWeight.w600))
                               : feeling_list[v]["feeling_name"] == "Calm"
                                   ? Text("🍃 Calm",
                                       style: GoogleFonts.openSans(
-                                          fontSize: 13.w,
+                                          fontSize: 15.w,
                                           fontWeight: FontWeight.w600))
                                   : feeling_list[v]["feeling_name"] == "Bored"
                                       ? Text("😖 Bored",
                                           style: GoogleFonts.openSans(
-                                              fontSize: 13.w,
+                                              fontSize: 15.w,
                                               fontWeight: FontWeight.w600))
                                       : Text("🥰 Love",
                                           style: GoogleFonts.openSans(
-                                              fontSize: 13.w,
+                                              fontSize: 15.w,
                                               fontWeight: FontWeight.w600)),
             ],
           ),
@@ -371,7 +330,7 @@ class _FeelingsHistoryState extends State<FeelingsHistory> {
           Text(
             "Your feelings from last 30 days",
             style: GoogleFonts.openSans(
-                fontSize: 13.w, fontWeight: FontWeight.w600),
+                fontSize: 15.w, fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 10.0),
           Row(
@@ -409,11 +368,10 @@ class _FeelingsHistoryState extends State<FeelingsHistory> {
       width: 40.w,
       child: Text(
         feeling,
-        maxLines: 1,
         textAlign: TextAlign.center,
         style: GoogleFonts.openSans(
             color: value == "0" ? Colors.grey : Colors.black,
-            fontSize: 9.w,
+            fontSize: 10.w,
             fontWeight: FontWeight.w500),
       ),
     );
@@ -453,13 +411,13 @@ class _FeelingsHistoryState extends State<FeelingsHistory> {
                   : Text(
                       "${int.parse(value) * 10}%",
                       style: GoogleFonts.openSans(
-                          fontSize: 13.w, fontWeight: FontWeight.w300),
+                          fontSize: 15.w, fontWeight: FontWeight.w500),
                     ),
             ),
             CircleAvatar(
               backgroundColor: value == "0"
-                  ? Colors.lightGreen[200]
-                  : Colors.lightGreenAccent[700],
+                  ? const Color.fromARGB(255, 200, 231, 199)
+                  : const Color.fromARGB(255, 140, 196, 87),
               child: Center(
                 child: Text(
                   emoji,
