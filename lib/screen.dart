@@ -371,8 +371,8 @@ class _FeelingsHistoryState extends State<FeelingsHistory> {
         textAlign: TextAlign.center,
         style: GoogleFonts.openSans(
             color: value == "0" ? Colors.grey : Colors.black,
-            fontSize: 10.w,
-            fontWeight: FontWeight.w500),
+            fontSize: 9.w,
+            fontWeight: FontWeight.w600),
       ),
     );
   }
